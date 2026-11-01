@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MLearn · 面向机器学习学习者的响应式学习网站，将 Python 编程与机器学习核心知识相结合，提供知识点讲解、实践案例与智能问答。" />
+  <title>MLearn · Python × 机器学习自学平台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主内容</a>
+
+  <!-- 顶栏 -->
+  <header class="topbar" id="topbar">
+    <div class="topbar__inner">
+      <button class="icon-btn topbar__menu" id="menuToggle" aria-label="打开导航菜单" aria-expanded="false" aria-controls="drawer">
+        <span class="hamburger"></span>
+      </button>
+
+      <a class="brand" href="#home" data-view="home" aria-label="MLearn 首页">
+        <span class="brand__logo" aria-hidden="true">🧠</span>
+        <span class="brand__name">MLearn</span>
+        <span class="brand__tag">Python × ML</span>
+      </a>
+
+      <nav class="topnav" aria-label="主导航">
+        <a class="topnav__link" href="#home" data-view="home">首页</a>
+        <a class="topnav__link" href="#knowledge" data-view="knowledge">核心知识点</a>
+        <a class="topnav__link" href="#practice" data-view="practice">Python 实践</a>
+        <a class="topnav__link" href="#qa" data-view="qa">智能问答</a>
+        <a class="topnav__link" href="#resources" data-view="resources">学习资源</a>
+        <a class="topnav__link" href="#about" data-view="about">关于</a>
+      </nav>
+
+      <div class="topbar__actions">
+        <button class="icon-btn" id="themeToggle" aria-label="切换深色 / 浅色主题" title="切换主题">
+          <span class="theme-icon" aria-hidden="true">🌙</span>
+        </button>
+        <a class="btn btn--primary topbar__cta" href="#qa" data-view="qa">开始问答</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 移动端抽屉遮罩 -->
+  <div class="drawer-overlay" id="drawerOverlay" hidden></div>
+
+  <!-- 移动端抽屉导航 -->
+  <aside class="drawer" id="drawer" aria-label="移动端导航" aria-hidden="true">
+    <div class="drawer__head">
+      <span class="brand__name">MLearn</span>
+      <button class="icon-btn" id="drawerClose" aria-label="关闭导航菜单">✕</button>
+    </div>
+    <nav class="drawer__nav">
+      <a class="drawer__link" href="#home" data-view="home">🏠 首页</a>
+      <a class="drawer__link" href="#knowledge" data-view="knowledge">📚 核心知识点</a>
+      <a class="drawer__link" href="#practice" data-view="practice">🐍 Python 实践</a>
+      <a class="drawer__link" href="#qa" data-view="qa">💬 智能问答</a>
+      <a class="drawer__link" href="#resources" data-view="resources">🧰 学习资源</a>
+      <a class="drawer__link" href="#about" data-view="about">ℹ️ 关于</a>
+    </nav>
+    <div class="drawer__foot">
+      <p class="drawer__hint">学习进度会自动保存在本机浏览器。</p>
+    </div>
+  </aside>
+
+  <main id="main" class="main">
+    <!-- 首页 -->
+    <section class="view is-active" id="view-home" data-view="home">
+      <div class="hero">
+        <div class="hero__bg" aria-hidden="true"></div>
+        <div class="hero__content">
+          <p class="hero__eyebrow fade-up" style="--delay:0ms">机器学习 · 自学路线图</p>
+          <h1 class="hero__title fade-up" style="--delay:80ms">用 Python 读懂<span class="hl">机器学习</span></h1>
+          <p class="hero__lead fade-up" style="--delay:160ms">
+            从核心概念到可运行代码，把抽象的算法变成你能上手练习的项目。
+            结构化知识、真实代码片段与即时问答，陪你高效自学。
+          </p>
+          <div class="hero__actions fade-up" style="--delay:240ms">
+            <a class="btn btn--primary btn--lg" href="#knowledge" data-view="knowledge">浏览知识点</a>
+            <a class="btn btn--ghost btn--lg" href="#qa" data-view="qa">试着问一个问题</a>
+          </div>
+          <div class="hero__stats fade-up" style="--delay:320ms">
+            <div class="stat"><span class="stat__num" id="statConcepts">0</span><span class="stat__label">核心知识点</span></div>
+            <div class="stat"><span class="stat__num" id="statPractice">0</span><span class="stat__label">实践案例</span></div>
+            <div class="stat"><span class="stat__num" id="statProgress">0%</span><span class="stat__label">学习进度</span></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section">
+        <h2 class="section__title">学习路径</h2>
+        <p class="section__sub">按阶段推进，循序渐进建立机器学习直觉。</p>
+        <div class="path" id="learningPath"></div>
+      </section>
+
+      <section class="section">
+        <h2 class="section__title">为什么用这个网站</h2>
+        <div class="feature-grid" id="featureGrid"></div>
+      </section>
+    </section>
+
+    <!-- 核心知识点 -->
+    <section class="view" id="view-knowledge" data-view="knowledge" hidden>
+      <div class="view__head">
+        <h1 class="view__title">核心知识点</h1>
+        <p class="view__desc">按主题浏览机器学习核心概念，点击查看详细讲解与要点。</p>
+        <div class="searchbar">
+          <span class="searchbar__icon" aria-hidden="true">🔍</span>
+          <input type="search" id="knowledgeSearch" class="searchbar__input" placeholder="搜索知识点，如：线性回归、过拟合、PCA…" aria-label="搜索知识点" />
+        </div>
+        <div class="chips" id="knowledgeChips" role="tablist" aria-label="知识点分类"></div>
+        <button class="chip chip--clear" id="clearFilter" type="button" hidden>✕ 清除筛选</button>
+      </div>
+      <div class="card-grid" id="knowledgeGrid"></div>
+      <div class="empty" id="knowledgeEmpty" hidden>没有匹配的知识点，换个关键词试试。</div>
+    </section>
+
+    <!-- 知识点详情（动态插入） -->
+    <section class="view" id="view-detail" data-view="detail" hidden></section>
+
+    <!-- Python 实践 -->
+    <section class="view" id="view-practice" data-view="practice" hidden>
+      <div class="view__head">
+        <h1 class="view__title">Python 与机器学习实践</h1>
+        <p class="view__desc">每个案例都是一段可运行的 scikit-learn 代码，配合讲解帮你建立工程直觉。</p>
+        <div class="searchbar">
+          <span class="searchbar__icon" aria-hidden="true">🔍</span>
+          <input type="search" id="practiceSearch" class="searchbar__input" placeholder="搜索实践案例，如：房价、鸢尾花、聚类…" aria-label="搜索实践案例" />
+        </div>
+      </div>
+      <div class="chips" id="practiceChips" role="tablist" aria-label="按难度筛选实践案例"></div>
+      <div class="practice-list" id="practiceList"></div>
+      <div class="empty" id="practiceEmpty" hidden>没有匹配的实践案例。</div>
+    </section>
+
+    <!-- 智能问答 -->
+    <section class="view" id="view-qa" data-view="qa" hidden>
+      <div class="qa-layout">
+        <div class="qa-main">
+          <div class="view__head view__head--inline">
+            <h1 class="view__title">智能问答</h1>
+            <p class="view__desc">基于知识点库的关键词匹配问答，输入问题即可获得相关讲解与跳转。</p>
+          </div>
+          <div class="qa-history" id="qaHistory" hidden aria-label="最近提问历史"></div>
+          <div class="chat" id="chat" role="log" aria-live="polite" aria-label="问答对话区"></div>
+          <form class="chat-input" id="chatForm" autocomplete="off">
+            <input type="text" id="chatInput" class="chat-input__field" placeholder="输入你的问题，例如：什么是过拟合？怎么用 Python 做线性回归？" aria-label="输入问题" />
+            <button type="submit" class="btn btn--primary chat-input__send" aria-label="发送">发送</button>
+          </form>
+          <div class="chat-suggestions" id="chatSuggestions"></div>
+        </div>
+        <aside class="qa-side" id="qaSide" aria-label="热门问题"></aside>
+      </div>
+    </section>
+
+    <!-- 学习资源 -->
+    <section class="view" id="view-resources" data-view="resources" hidden>
+      <div class="view__head">
+        <h1 class="view__title">学习资源</h1>
+        <p class="view__desc">书籍、课程、工具、数据集与社区——学完本站内容后，从这里继续往外延伸。</p>
+        <div class="searchbar">
+          <span class="searchbar__icon" aria-hidden="true">🔍</span>
+          <input type="search" id="resourceSearch" class="searchbar__input" placeholder="搜索资源，如：西瓜书、Coursera、数据集、Streamlit…" aria-label="搜索学习资源" />
+        </div>
+        <div class="chips" id="resourceChips" role="tablist" aria-label="按类型筛选学习资源"></div>
+        <div class="view__meta">
+          <span class="res-count" id="resourceCount"></span>
+          <button class="chip chip--clear chip--inline" id="clearResourceFilter" type="button" hidden>✕ 清除筛选</button>
+        </div>
+      </div>
+      <div class="card-grid" id="resourceGrid"></div>
+      <div class="empty" id="resourceEmpty" hidden>没有匹配的学习资源，换个关键词试试。</div>
+    </section>
+
+    <!-- 关于 -->
+    <section class="view" id="view-about" data-view="about" hidden>
+      <div class="about">
+        <h1 class="view__title">关于 MLearn</h1>
+        <p class="about__lead">
+          MLearn 是一个轻量、纯前端的机器学习自学平台，目标是把 Python 编程能力与机器学习核心知识
+          自然地结合在一起。所有内容在浏览器本地运行，无需后端，方便随时打开复习。
+        </p>
+        <div class="about__grid">
+          <div class="about__card">
+            <h3>🎯 设计目标</h3>
+            <ul>
+              <li>清晰的信息架构：首页 → 知识点 → 实践 → 问答。</li>
+              <li>响应式体验：桌面端多栏、移动端抽屉与单列布局。</li>
+              <li>即时反馈：搜索、问答、进度保存都在前端完成。</li>
+            </ul>
+          </div>
+          <div class="about__card">
+            <h3>🧩 技术说明</h3>
+            <ul>
+              <li>纯静态 HTML / CSS / JavaScript，无构建步骤。</li>
+              <li>知识点与问答数据集中在 <code>data.js</code>。</li>
+              <li>问答采用关键词匹配算法，可离线使用。</li>
+            </ul>
+          </div>
+          <div class="about__card">
+            <h3>📈 使用建议</h3>
+            <ul>
+              <li>先看「学习路径」建立全局认知。</li>
+              <li>遇到不懂的概念，直接在「智能问答」里问。</li>
+              <li>动手跑一遍「Python 实践」中的代码。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="about__note">
+          <p>提示：本网站用于学习入门与复习。代码示例以 scikit-learn 为主，运行前请确保已安装
+          <code>numpy</code>、<code>pandas</code>、<code>matplotlib</code>、<code>scikit-learn</code>。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span>MLearn · 用 Python 自学机器学习</span>
+      <span class="footer__meta">纯前端实现 · 响应式 · 可离线</span>
+    </div>
+  </footer>
+
+  <!-- 提示气泡 -->
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
